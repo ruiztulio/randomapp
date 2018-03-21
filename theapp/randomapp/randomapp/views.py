@@ -10,7 +10,7 @@ from rest_framework.response import Response
 
 def index(request):
     users = UserData.objects.values('worker_id').annotate(num_values=Count('first_name')).order_by('-num_values')
-    data_dict = {'user_list': get_work}
+    data_dict = {'user_list': users}
     return render(request, 'index.html', context=data_dict)
 
 class UserDataListCreate(generics.ListCreateAPIView):
