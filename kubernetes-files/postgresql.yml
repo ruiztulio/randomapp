@@ -15,14 +15,13 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: 
+  name: randomapp-db
   labels:
     name: randomapp-db
 spec:
   selector:
     matchLabels:
-      app: randomapp
-  serviceName: randomapp-db
+      app: randomapp-db
   replicas: 1
   template:
     metadata:

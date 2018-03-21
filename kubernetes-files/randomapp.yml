@@ -1,4 +1,17 @@
 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: randomapp
+  labels:
+    name: randomapp
+spec:
+  ports:
+  - port: 8000
+    targetPort: 8000
+  selector:
+    name: randomapp
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -6,7 +19,6 @@ metadata:
   labels:
     name: randomapp
     app: randomapp
-  namespace: randomapp
 spec:
   selector:
     matchLabels:
@@ -24,7 +36,7 @@ spec:
       hostname: odootest
       containers:
       - name: randomapp
-        image: quay.io/vauxoo/odoo110:latest
+        image: ruiztulio/randomapp
         imagePullPolicy: Always
         env:
           - name: DB_HOST
