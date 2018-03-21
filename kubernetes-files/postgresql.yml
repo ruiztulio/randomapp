@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: randomapp-db
+  labels:
+    name: randomapp-db
+spec:
+  ports:
+  - port: 5432
+    targetPort: 5432
+  selector:
+    name: randomapp-db
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: 
+  labels:
+    name: randomapp-db
+spec:
+  selector:
+    matchLabels:
+      app: randomapp
+  serviceName: randomapp-db
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: randomapp-db
+        app: randomapp-db
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: postgresql
+        image: postgres:10.3
+        env:
+        - name: POSTGRES_PASSWORD
+          value: YMY72P9zewVuRTRFZHVqdJ5rT4kyt6qLUd3B
+        - name: POSTGRES_USER
+          value: postgres
+        ports:
+        - name: postgres
+          containerPort: 5432

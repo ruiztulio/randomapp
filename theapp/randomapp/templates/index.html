@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User list migrated</title>
+    <link rel="stylesheet" href="{% static "styles.css"%}">
+</head>
+
+<body>
+    <h1>Full User list</h1>
+    {% if user_list %}
+        <table>
+            <thead>
+                <th>Worker id</th>
+                <th>Requests</th>
+            {% for user in user_list %}
+                <tr>
+                    <td>{{ user.worker_id }}</td>
+                    <td>{{ user.num_values }}</td>
+                </tr>            
+            {% endfor %}
+        </table>
+    {% endif %}
+
+</body>
+</html>

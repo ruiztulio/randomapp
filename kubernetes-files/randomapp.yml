@@ -1,0 +1,50 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: randomapp
+  labels:
+    name: randomapp
+    app: randomapp
+  namespace: randomapp
+spec:
+  selector:
+    matchLabels:
+      app: randomapp
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: randomapp
+        app: randomapp
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: odootest
+      containers:
+      - name: randomapp
+        image: quay.io/vauxoo/odoo110:latest
+        imagePullPolicy: Always
+        env:
+          - name: DB_HOST
+            value: randomapp-db
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: randomapp-config
+                key: db_password
+          - name: DB_USER
+            valueFrom:
+              secretKeyRef:
+                name: randomapp-config
+                key: db_user
+          - name: DB_NAME
+            valueFrom:
+              secretKeyRef:
+                name: randomapp-config
+                key: db_name
+
+        ports:
+        - name: randomapp
+          containerPort: 8000
