@@ -30,13 +30,16 @@ spec:
         app: randomapp-db
     spec:
       terminationGracePeriodSeconds: 30
-      imagePullPolicy: Always
       containers:
       - name: postgresql
+        imagePullPolicy: Always
         image: postgres:10.3-alpine
         env:
         - name: POSTGRES_PASSWORD
-          value: YMY72P9zewVuRTRFZHVqdJ5rT4kyt6qLUd3B
+          valueFrom:
+            secretKeyRef:
+              name: randomapp-config
+              key: postgresq_pass
         - name: POSTGRES_USER
           value: postgres
         ports:

@@ -33,7 +33,7 @@ spec:
         app: randomapp
     spec:
       terminationGracePeriodSeconds: 30
-      hostname: odootest
+      hostname: randomapphost
       containers:
       - name: randomapp
         image: ruiztulio/randomapp
