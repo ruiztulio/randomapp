@@ -6,7 +6,6 @@ django.setup()
 
 
 from faker import Faker
-import random
 from randomapp.models import UserData
 import uuid
 
